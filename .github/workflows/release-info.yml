@@ -10,16 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-      - name: Download previous release info
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v7 # It's not possible to use actions/upload-artifact as of the time of writing
-        with:
-          name: vulkanmod-release-info
-          workflow_conclusion: success
-          workflow: publish.yml
-          if_no_artifact_found: warn
-
       - name: Get latest release
         id: get_release
         run: |
@@ -32,7 +22,7 @@ jobs:
         id: compare_release
         run: |
           # Read the release info from the downloaded artifact
-          PREVIOUS_RELEASE=$(cat vulkanmod-release-info 2> /dev/null || echo "NONE")
+          PREVIOUS_RELEASE=${{ github.ref_name }}
           echo "previous release: $PREVIOUS_RELEASE"
 
           # Compare the fetched release tag with the previous release tag
