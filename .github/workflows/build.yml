@@ -51,7 +51,7 @@ jobs:
             # This is an unofficial ARM build.
             No warranty or support is provided for this product. It is provided as-is. Use at your own discretion.
             
-            ## Changes:
+            ## Changes
             For a list of changes, view https://github.com/xCollateral/VulkanMod/releases/${{ steps.get_release.outputs.RELEASE_TAG }}
 
           tag_name: ${{ steps.get_release.outputs.RELEASE_TAG }}
