@@ -15,6 +15,12 @@ jobs:
           RELEASE_TAG=$(curl -s https://api.github.com/repos/xCollateral/VulkanMod/releases/latest | jq -r '.tag_name')
           echo "release_tag=$RELEASE_TAG" >> $GITHUB_OUTPUT
           echo "latest release: $RELEASE_TAG"
+      
+      - name: Store version number artifact
+        run: |
+          # Store the newly fetched release version in a file
+          echo "${{ steps.get_release.outputs.RELEASE_TAG }}" > vulkanmod-release-info
+          echo "Saved ${{ steps.get_release.outputs.RELEASE_TAG }} to vulkanmod-release-info
 
       - name: Checkout VulkanMod repo
         uses: actions/checkout@v4
@@ -41,11 +47,11 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: Upload new artifacts
+      - name: Upload release info
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ steps.get_release.outputs.RELEASE_TAG }}
-          path: build/libs/*
+          name: vulkanmod-release-info
+          path: vulkanmod-release-info
       
       - name: Release
         uses: softprops/action-gh-release@v2
