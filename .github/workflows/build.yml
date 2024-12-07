@@ -47,8 +47,6 @@ jobs:
         run: |
           # Fetch release information and extract the release tag
           RELEASE_BODY=$(curl -s https://api.github.com/repos/xCollateral/VulkanMod/releases/latest | jq -r '.body')
-          echo "# This is an unofficial ARM build.\r\nNo warranty or support is provided for this product. It is provided as-is. Use at your own discretion.\r\n# Changes:\r\n${{ steps.get_release_body.outputs.RELEASE_BODY }}\r\nView original: https://github.com/xCollateral/VulkanMod/releases/${{ steps.get_release.outputs.RELEASE_TAG }}"  > release.text
-          echo "release_body=$RELEASE_BODY" >> release.txt
           echo "Changes: $RELEASE_BODY"
       
       - name: Release
@@ -57,6 +55,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: build/libs/*_dev.jar
-          body_path: release.txt
+          body: |
+            # This is an unofficial ARM build.
+            No warranty or support is provided for this product. It is provided as-is. Use at your own discretion.
+            
+            # Changes:
+            ${{ steps.get_release_body.outputs.RELEASE_BODY }}
+            
+            View original: https://github.com/xCollateral/VulkanMod/releases/${{ steps.get_release.outputs.RELEASE_TAG }}
+
           tag_name: ${{ steps.get_release.outputs.RELEASE_TAG }}
           make_latest: true
