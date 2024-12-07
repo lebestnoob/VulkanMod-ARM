@@ -48,8 +48,11 @@ jobs:
           path: build/libs/*
       
       - name: Release
-        uses: ncipollo/release-action@v1
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          artifacts: build/libs/*.jar
-          body: This is an unofficial ARM build. No warranty or support is provided for this product. It is provided as-is. Use at your own discretion.
-          tag: ${{ steps.get_release.outputs.RELEASE_TAG }}
+          files: build/libs/*.jar
+          body: '# This is an unofficial ARM build built on ${date}. No warranty or support is provided for this product. It is provided as-is. Use at your own discretion. \r\n For a complete list of changes, view https://api.github.com/repos/xCollateral/VulkanMod/releases/${{ steps.get_release.outputs.RELEASE_TAG }}'
+          tag_name: ${{ steps.get_release.outputs.RELEASE_TAG }}
+          make_latest: true
