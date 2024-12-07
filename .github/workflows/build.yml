@@ -37,12 +37,12 @@ jobs:
           path: patch
       
       - name: Apply patch
-        run: | 
-          tree ~
-          # git apply patch/arm.patch
+        run: git apply patch/arm.patch
       
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
       - name: Build with Gradle
         run: ./gradlew build
 
