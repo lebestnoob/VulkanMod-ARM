@@ -35,7 +35,7 @@ jobs:
           ref: ${{ steps.get_release.outputs.RELEASE_TAG }}
       - run: | 
           # git apply VulkanMod-ARM/patch/arm.patch
-          ls path
+          ls patch
       
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
