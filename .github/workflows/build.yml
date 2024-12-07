@@ -20,7 +20,7 @@ jobs:
         run: |
           # Store the newly fetched release version in a file
           echo "${{ steps.get_release.outputs.RELEASE_TAG }}" > vulkanmod-release-info
-          echo "Saved ${{ steps.get_release.outputs.RELEASE_TAG }} to vulkanmod-release-info
+          echo "Saved ${{ steps.get_release.outputs.RELEASE_TAG }}" to vulkanmod-release-info
 
       - name: Checkout VulkanMod repo
         uses: actions/checkout@v4
