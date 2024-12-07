@@ -36,7 +36,7 @@ jobs:
       
       - name: Apply patch
         run: | 
-          ls
+          tree ~
           # git apply arm.patch
       
       - name: Setup Gradle
