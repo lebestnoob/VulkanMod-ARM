@@ -22,10 +22,10 @@ jobs:
         id: compare_release
         run: |
           # Read the release info from the downloaded artifact
-          echo "previous release: ${{ github.event.release.tag_name }}"
+          echo "previous release: $GITHUB_REF_NAME"
 
           # Compare the fetched release tag with the previous release tag
-          if [ "${{ steps.get_release.outputs.RELEASE_TAG }}" != "${{ github.event.release.tag_name }}" ]; then
+          if [ "${{ steps.get_release.outputs.RELEASE_TAG }}" != "$GITHUB_REF_NAME" ]; then
             echo "release_changed=true" >> $GITHUB_OUTPUT
             echo "Release changed: true"
           else
