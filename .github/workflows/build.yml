@@ -40,29 +40,19 @@ jobs:
         run: chmod +x ./gradlew
       - name: Build with Gradle
         run: ./gradlew build
-
-      - name: Get release body
-        id: get_release_body
-        
-        run: |
-          # Fetch release information and extract the release tag
-          RELEASE_BODY=$(curl -s https://api.github.com/repos/xCollateral/VulkanMod/releases/latest | jq -r '.body')
-          echo "Changes: $RELEASE_BODY"
       
       - name: Release
         uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: build/libs/*_dev.jar
+          files: build/libs/*dev.jar
           body: |
             # This is an unofficial ARM build.
             No warranty or support is provided for this product. It is provided as-is. Use at your own discretion.
             
             # Changes:
-            ${{ steps.get_release_body.outputs.RELEASE_BODY }}
-            
-            View original: https://github.com/xCollateral/VulkanMod/releases/${{ steps.get_release.outputs.RELEASE_TAG }}
+            For a list of changes, view https://github.com/xCollateral/VulkanMod/releases/${{ steps.get_release.outputs.RELEASE_TAG }}
 
           tag_name: ${{ steps.get_release.outputs.RELEASE_TAG }}
           make_latest: true
