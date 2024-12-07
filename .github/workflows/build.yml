@@ -13,18 +13,9 @@ jobs:
         run: |
           # Fetch release information and extract the release tag
           RELEASE_TAG=$(curl -s https://api.github.com/repos/xCollateral/VulkanMod/releases/latest | jq -r '.tag_name')
-          RELEASE_BODY=$(curl -s https://api.github.com/repos/xCollateral/VulkanMod/releases/latest | jq -r '.body')
           echo "release_tag=$RELEASE_TAG" >> $GITHUB_OUTPUT
           echo "latest release: $RELEASE_TAG"
 
-      - name: Store description
-        run: |
-          # Store the newly fetched release version in a file
-          # echo "${{ steps.get_release.outputs.RELEASE_TAG }}" > release-info
-          echo "# This is an unofficial ARM build. No warranty or support is provided for this product. It is provided as-is. Use at your own discretion. /r/n" > release-body.txt
-          echo "${{ steps.get_release.outputs.RELEASE_BODY }}" >> release-body.txt
-          # echo "Saved ${{ steps.get_release.outputs.RELEASE_TAG }} to release-info"  
-  
       - name: Checkout VulkanMod repo
         uses: actions/checkout@v4
         with:
@@ -60,6 +51,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: build/libs/*
-          body_path: release-body.txt
+          body: This is an unofficial ARM build. No warranty or support is provided for this product. It is provided as-is. Use at your own discretion.
           tag_name: ${{ steps.get_release.outputs.RELEASE_TAG }}
           make_latest: true
