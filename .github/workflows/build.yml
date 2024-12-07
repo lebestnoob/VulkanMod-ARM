@@ -50,6 +50,6 @@ jobs:
       - name: Release
         uses: ncipollo/release-action@v1
         with:
-          files: build/libs/*.jar
+          artifacts: build/libs/*.jar
           body: This is an unofficial ARM build. No warranty or support is provided for this product. It is provided as-is. Use at your own discretion.
           tag: ${{ steps.get_release.outputs.RELEASE_TAG }}
