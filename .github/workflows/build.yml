@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: xCollateral/VulkanMod
-          ref: ${{ steps.get_release.outputs.RELEASE_TAG }}
+          ref: dev
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,7 +40,6 @@ jobs:
         run: chmod +x ./gradlew
       - name: Build with Gradle
         run: ./gradlew build
-
       
       - name: Release
         uses: softprops/action-gh-release@v2
@@ -51,6 +50,7 @@ jobs:
           body: |
             # This is an unofficial ARM build.
             No warranty or support is provided for this product. It is provided as-is. Use at your own discretion. 
-            For a complete list of changes, view https://github.com/xCollateral/VulkanMod/releases/${{ steps.get_release.outputs.RELEASE_TAG }}
+            For a list of changes, view https://github.com/xCollateral/VulkanMod/releases/${{ steps.get_release.outputs.RELEASE_TAG }}
+            
           tag_name: ${{ steps.get_release.outputs.RELEASE_TAG }}
           make_latest: true
