@@ -23,21 +23,23 @@ jobs:
           # echo "${{ steps.get_release.outputs.RELEASE_TAG }}" > release-info
           echo "# This is an unofficial ARM build. No warranty or support is provided for this product. It is provided as-is. Use at your own discretion. /r/n" > release-body.txt
           echo "${{ steps.get_release.outputs.RELEASE_BODY }}" >> release-body.txt
-          # echo "Saved ${{ steps.get_release.outputs.RELEASE_TAG }} to release-info"
-      
-      - name: Checkout
-        uses: actions/checkout@v4
+          # echo "Saved ${{ steps.get_release.outputs.RELEASE_TAG }} to release-info"  
   
       - name: Checkout VulkanMod repo
         uses: actions/checkout@v4
         with:
           repository: xCollateral/VulkanMod
           ref: ${{ steps.get_release.outputs.RELEASE_TAG }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: patch
       
       - name: Apply patch
         run: | 
           tree ~
-          # git apply arm.patch
+          # git apply patch/arm.patch
       
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
