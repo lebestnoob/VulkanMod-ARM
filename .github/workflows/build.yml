@@ -15,19 +15,7 @@ jobs:
           RELEASE_TAG=$(curl -s https://api.github.com/repos/xCollateral/VulkanMod/releases/latest | jq -r '.tag_name')
           echo "release_tag=$RELEASE_TAG" >> $GITHUB_OUTPUT
           echo "latest release: $RELEASE_TAG"
-      
-      - name: Store version number artifact
-        run: |
-          # Store the newly fetched release version in a file
-          echo "${{ steps.get_release.outputs.RELEASE_TAG }}" > vulkanmod-release-info
-          echo "Saved ${{ steps.get_release.outputs.RELEASE_TAG }}" to vulkanmod-release-info
 
-      - name: Upload release info
-        uses: actions/upload-artifact@v4
-        with:
-          name: vulkanmod-release-info
-          path: vulkanmod-release-info
-          
       - name: Checkout VulkanMod repo
         uses: actions/checkout@v4
         with:
@@ -59,7 +47,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: build/libs/*.jar
+          files: build/libs/*_dev.jar
           body: |
             # This is an unofficial ARM build.
             No warranty or support is provided for this product. It is provided as-is. Use at your own discretion. 
