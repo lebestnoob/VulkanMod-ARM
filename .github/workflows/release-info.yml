@@ -10,6 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: oprypin/find-latest-tag@v1
+        with:
+          repository: lebestnoob/VulkanMod-ARM  # The repository to scan.
+          releases-only: true  # We know that all relevant tags have a GitHub release for them.
+        id: vulkanmod  # The step ID to refer to later.
+
+      - run: echo "VulkanMod-ARM is at version ${{ steps.vulkanmod.outputs.tag }}"
+     
       - name: Get latest release
         id: get_release
         run: |
@@ -22,10 +30,10 @@ jobs:
         id: compare_release
         run: |
           # Read the release info from the downloaded artifact
-          echo "previous release: $GITHUB_REF_NAME"
+          echo "previous release: ${{ steps.vulkanmod.outputs.tag }}"
 
           # Compare the fetched release tag with the previous release tag
-          if [ "${{ steps.get_release.outputs.RELEASE_TAG }}" != "$GITHUB_REF_NAME" ]; then
+          if [ "${{ steps.get_release.outputs.RELEASE_TAG }}" != "${{ steps.vulkanmod.outputs.tag }}" ]; then
             echo "release_changed=true" >> $GITHUB_OUTPUT
             echo "Release changed: true"
           else
