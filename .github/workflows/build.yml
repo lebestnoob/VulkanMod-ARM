@@ -29,6 +29,11 @@ jobs:
       
       - name: Apply patch
         run: git apply patch/arm.patch
+      - name: Update build configuration (if needed)
+        run: |
+          if [ -f patch/update.patch ]; then
+            git apply patch/update.patch
+          fi
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
