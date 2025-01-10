@@ -32,7 +32,7 @@ jobs:
       - name: Update build configuration (if needed)
         run: |
           if [ -f patch/update.patch ]; then
-            git apply patch/update.patch
+            git apply --reject --whitespace=fix patch/update.patch
           fi
       - name: Setup Java
         uses: actions/setup-java@v4
