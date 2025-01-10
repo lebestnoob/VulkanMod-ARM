@@ -1,3 +1,14 @@
+diff --git a/build.gradle b/build.gradle
+index b933e3f..3f9e6b9 100644
+--- a/build.gradle
++++ b/build.gradle
+@@ -1,5 +1,5 @@
+ plugins {
+-	id 'fabric-loom' version '1.6.11'
++	id 'fabric-loom' version '1.9.2'
+ 	id 'maven-publish'
+ }
+ 
 diff --git a/gradle.properties b/gradle.properties
 index 8f55f61..143b9df 100644
 --- a/gradle.properties
